@@ -38,7 +38,7 @@ def rgb_img(lat, lon, **kargs):
     h = kargs['h']
     w = kargs['w']
     # Image
-    url_image=f"https://dev.virtualearth.net/REST/v1/Imagery/Map/Aerial/{lat},{lon}/{z}?mapSize={w},{h}&key=AjzTZ4g5gHanzxWb6gwkNeXMZsdwXxoc8LQJe_F9RyBmitBVTH1ad6RllancUhbI"
+    url_image=f"https://dev.virtualearth.net/REST/v1/Imagery/Map/Aerial/{lat},{lon}/{z}?mapSize={w},{h}&key={bm_apikey}"
     response = requests.get(url_image)
     str2img = BytesIO(response.content)
     image = Image.open(str2img).convert('RGB')
@@ -52,7 +52,7 @@ def img_bbox(lat, lon, **kargs):
     h = kargs['h']
     w = kargs['w']
     # Image bounding box
-    url_image=f"https://dev.virtualearth.net/REST/v1/Imagery/Map/Aerial/{lat},{lon}/{z}?mapSize={w},{h}&mmd=1&key=AjzTZ4g5gHanzxWb6gwkNeXMZsdwXxoc8LQJe_F9RyBmitBVTH1ad6RllancUhbI"
+    url_image=f"https://dev.virtualearth.net/REST/v1/Imagery/Map/Aerial/{lat},{lon}/{z}?mapSize={w},{h}&mmd=1&key={bm_apikey}"
     metadata = urlopen(url_image).read()
     metadata = json.loads(metadata)
     bbox = metadata['resourceSets'][0]['resources'][0]['bbox']
