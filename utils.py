@@ -33,7 +33,7 @@ def data_centre(dst_dir:str, counter:int, shp_data:GeoDataFrame):
 
 
 
-def rgb_img(lat, lon, **kargs):
+def bm_rgb_img(lat, lon, **kargs):
     z = kargs['z']
     h = kargs['h']
     w = kargs['w']
@@ -47,7 +47,7 @@ def rgb_img(lat, lon, **kargs):
     return imgArray
 
 
-def img_bbox(lat, lon, **kargs):
+def bm_img_bbox(lat, lon, **kargs):
     z = kargs['z']
     h = kargs['h']
     w = kargs['w']

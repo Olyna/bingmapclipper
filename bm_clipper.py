@@ -12,7 +12,7 @@ All results have common CRS 4326.
 
 
 Usage:
-python3 test_retrieve_mangos_ims.py -srcpth /home/olyna/Documents/RSLab/dimitris_mangos_ships/by_mangos/ships_dataset_v4/ships_ORIG_classes/my_example -zoom 18 -im_h 430 -im_w 670
+python3 bm_clipper.py -srcpth /home/olyna/Documents/RSLab/dimitris_mangos_ships/by_mangos/ships_dataset_v4/ships_ORIG_classes/ships_raw_data -zoom 18 -im_h 430 -im_w 670
 """
 import os
 import rasterio
@@ -51,7 +51,7 @@ if __name__ == '__main__':
     args.im_w = args.im_w + minus_pixels
 
     # Create filesystem to save results
-    dst_path = os.path.join(os.path.dirname(args.srcpth), 'results')
+    dst_path = os.path.join(os.path.dirname(args.srcpth), 'bm_results')
     try:
         os.mkdir(dst_path)
     except:
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 
     counter = 0
     all_annots = gpd.GeoDataFrame()
-    for shp_path in shp_paths[0:5]:
+    for shp_path in shp_paths:
         print(f"{counter} - {os.path.basename(shp_path)}")
         # Read shp
         shp_data = gpd.read_file(shp_path)
@@ -78,10 +78,10 @@ if __name__ == '__main__':
         k_args = {'z':args.zoom,
                 'w':args.im_w,
                 'h':args.im_h}
-        imgArray = utils.rgb_img(lat, lon, **k_args)
+        imgArray = utils.bm_rgb_img(lat, lon, **k_args)
 
         # Retrieve image bounding box
-        bbox = utils.img_bbox(lat, lon, **k_args)
+        bbox = utils.bm_img_bbox(lat, lon, **k_args)
 
         # Transformation of original downloaded image
         old_trans = rasterio.transform.from_bounds(bbox[1], bbox[0], bbox[3], bbox[2], args.im_w, args.im_h)
